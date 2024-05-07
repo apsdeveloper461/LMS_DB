@@ -2,20 +2,22 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Slider/Navbar'
 import Slider from '../Slider/Slider'
 import parsedToStudentSlider from './menu'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 function Grades() {
-  const[gradesData,setGradesData]=useState(NULL);
-  useEffect(()=>{
-    const studentInfo={
-       'student_id':Cookies.get('student_id')
-    }
-    axios.post('http://127.0.0.1:8000/api/student/grades',studentInfo)
-   .then(res=>{
-    console.log(res.data);
-    setGradesData(res.data);
-    })
-   .catch(err=>{
-    console.log(err);
+   const[gradesData,setGradesData]=useState({});
+   useEffect(()=>{
+     const studentInfo={
+        'student_id':Cookies.get('student_id')
+     }
+    axios.post('http://localhost:5000/student/grades',studentInfo)
+    .then(res=>{
+     console.log(res.data);
+     setGradesData(res.data);
+     })
+    .catch(err=>{
+      console.log(err);
     })
 
   },[])
@@ -27,7 +29,7 @@ function Grades() {
         <h1>Grades Details</h1>
 
         
-<div class="table-container">
+<div className="table-container">
     <table>
         <thead>
             <tr>
@@ -38,13 +40,20 @@ function Grades() {
             </tr>
         </thead>
         <tbody>
+        {gradesData && gradesData.length > 0 ? (gradesData.map(item => (
             <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
+                <td>{item.course_id}</td>
+                <td>{item.course_name}</td>
+                <td>{item.course_credit}</td>
+                <td>{item.grade}</td>
             </tr>
-        </tbody>
+           ))
+          ):
+          (
+            
+             <tr ><td colSpan={4} >No result found</td></tr> 
+          )}
+          </tbody>
     </table>
 </div>
         
