@@ -1,0 +1,23 @@
+/* .content-container {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.content-container h2 {
+    animation: slideIn 1s ease forwards;
+}
+
+.content-container p {
+    animation: slideIn 1s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} */

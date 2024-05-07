@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+    }
+    .loading-bar-out {
+      margin: 10px;
+      width: 275px;
+      height: 25px;
+      border-radius: 20px;
+      border: 1px solid black;
+      background-color: #dddddd;
+      box-shadow: inset 1px 1px 5px black;
+    }
+    .loading-bar-in {
+      width: 78%;
+      height: 99%;
+      border-radius: 20px;
+      /* border: 1px solid  black; */
+      background-color: rgb(116, 194, 92);
+      box-shadow: inset 0px 0px 10px 4px chartreuse;
+    }
+    .hero {
+      height: 99.5vh;
+      background-color: #f7f7f7;
+    }
+    .navbar {
+      background: linear-gradient(0deg, rgba(9,53,121,1) 15%, rgba(0,212,255,1) 100%);
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      z-index: 100;
+      position: sticky;
+      top: 0;
+      height: 10%;
+      width: 100%;
+      background-color: rgb(51, 51, 51);
+      color: aliceblue;
+    }
+    .dpbg {
+      height: 60px;
+      width: 60px;
+      background-color: #f7f7f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 5px;
+      border-radius: 100%;
+      margin-right: 20px;
+    }
+    .dp {
+      height: 55px;
+      width: 55px;
+      background-image: url("https://i.pinimg.com/736x/54/72/d1/5472d1b09d3d724228109d381d617326.jpg");
+      background-position: center;
+      background-size: contain;
+      border-radius: 100px;
+    }
+    /* .dp img{
+        height: 75px;
+        border-radius: 100px;
+        width: 75px;
+    } */
+    .username {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-right: 10px;
+    }
+    .left-container {
+      position: fixed;
+      bottom: 0;
+      z-index: 2;
+      left: 0;
+      width: 15%;
+      height: 90.5%;
+      /* background-color: rgb(222, 222, 222); */
+      /* background: linear-gradient(blue , skyblue , 90deg) ; */
+      background: linear-gradient(90deg, rgb(16, 76, 167) 15%, rgba(0,212,255,1) 100%);
+    }
+    .menu {
+      border-top: 1px solid black;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .left-container .menu .menu-items {
+      font-size: 1.2rem;
+      font-weight: 500;
+      padding: 10px 10px;
+      border-bottom: 1px solid black;
+    }
+    .menu-items:hover {
+      /* background-color: rgb(51, 51, 51); */
+      background-color:  rgba(9,53,121,1);
+      color: #f7f7f7;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .right-container {
+      background-color: #f7f7f7;
+      height: 90.5%;
+      width: 85%;
+      overflow-y: scroll;
+      z-index: 0;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+    .attendance-box {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .course-section{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .course-box {
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0px 0px 7px black;
+      border: 1px solid black;
+      border-radius: 10px;
+      box-sizing: border-box;
+      width: 40%;
+      margin: 10px 30px;
+      margin-bottom: 30px;
+    }
+    .at-course-box {
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0px 0px 7px black;
+      border: 1px solid black;
+      border-radius: 10px;
+      box-sizing: border-box;
+      width: 40%;
+      margin: 10px 30px;
+      margin-bottom: 30px;
+    }
+    .at-course-box h2,
+    h3,
+    h4 {
+      margin-bottom: 10px;
+    }
+    .right-container h1 {
+      margin: 28px;
+    }
+    .register-btn{
+        font-weight: 500;
+        padding: 10px;
+        text-align: center;
+        width: 60%;
+        background-color: chartreuse;
+        border: 1px solid black;
+        border-radius: 4px;
+        margin:auto;
+        cursor: pointer;
+        transition: 0.1s;
+    }
+    .register-btn:hover{
+        font-weight: 800;
+        color: whitesmoke;
+        background-color:forestgreen;
+    }
+  </style>
+  <body>
+    <div class="hero">
+      <div class="navbar">
+        <div class="username">Student Name</div>
+        
+      </div>
+      <div class="left-container">
+        <div class="menu">
+          <div class="menu-items" onclick="viewDashboard()">Dashboard</div>
+          <div class="menu-items" onclick="viewRegisterCourse()">
+            Register Course
+          </div>
+          <div class="menu-items" onclick="viewCurrentCourse()">
+            Current Courses
+          </div>
+          <div class="menu-items" onclick="viewAttndance()">
+            View Attendance
+          </div>
+          <div class="menu-items" onclick="viewFeeInvoices()">Fee Invoices</div>
+          <div class="menu-items" onclick="viewScholarship()">Scholarships</div>
+        </div>
+      </div>
+      <div class="right-container">
+        <div id="Dashboard">
+          <h1>Dashboard</h1>
+        </div>
+        <div id="Register-Course">
+          <h1>Available Courses</h1>
+          <div class="course-section">
+            <div class="course-box">
+              <h2>Course Name</h2>
+              <h3>Instructor Name</h3>
+              <h4>Credit Hours</h4>
+              <div class="register-btn">Register Course</div>
+            </div>
+            <div class="course-box">
+                <h2>Course Name</h2>
+                <h3>Instructor Name</h3>
+                <h4>Credit Hours</h4>
+                <div class="register-btn">Register Course</div>
+            </div>
+            <div class="course-box">
+                <h2>Course Name</h2>
+                <h3>Instructor Name</h3>
+                <h4>Credit Hours</h4>
+                <div class="register-btn">Register Course</div>
+            </div>
+            <div class="course-box">
+                <h2>Course Name</h2>
+                <h3>Instructor Name</h3>
+                <h4>Credit Hours</h4>
+                <div class="register-btn">Register Course</div>
+            </div>
+            <div class="course-box">
+                <h2>Course Name</h2>
+                <h3>Instructor Name</h3>
+                <h4>Credit Hours</h4>
+                <div class="register-btn">Register Course</div>
+            </div>
+        </div>
+    </div>
+    <div id="Current-Course">
+        <h1>Current Courses</h1>
+        <div class="course-section">
+              <div class="course-box">
+                  <h2>Course Name</h2>
+                  <h3>Instructor Name</h3>
+                  <h4>Credit Hours</h4>
+              </div>
+              <div class="course-box">
+                  <h2>Course Name</h2>
+                  <h3>Instructor Name</h3>
+                  <h4>Credit Hours</h4>
+              </div>
+              <div class="course-box">
+                  <h2>Course Name</h2>
+                  <h3>Instructor Name</h3>
+                  <h4>Credit Hours</h4>
+              </div>
+              <div class="course-box">
+                  <h2>Course Name</h2>
+                  <h3>Instructor Name</h3>
+                  <h4>Credit Hours</h4>
+              </div>
+              <div class="course-box">
+                  <h2>Course Name</h2>
+                  <h3>Instructor Name</h3>
+                  <h4>Credit Hours</h4>
+              </div>
+          </div>
+        </div>
+        <div id="View-Attendance">
+          <h1>Attendance</h1>
+          <div class="attendance-box">
+            <div class="at-course-box" id="a1">
+              <h2>Course Name</h2>
+              <h3>Instructor Name</h3>
+              <h4>Attendence : 78%</h4>
+              <div class="loading-bar-out">
+                <div class="loading-bar-in"></div>
+              </div>
+            </div>
+            <div class="at-course-box" id="a2">
+              <h2>Course Name</h2>
+              <h3>Instructor Name</h3>
+              <h4>Attendence : 78%</h4>
+              <div class="loading-bar-out">
+                <div class="loading-bar-in"></div>
+              </div>
+            </div>
+            <div class="at-course-box" id="a3">
+              <h2>Course Name</h2>
+              <h3>Instructor Name</h3>
+              <h4>Attendence : 78%</h4>
+              <div class="loading-bar-out">
+                <input type="range" min="1" max="100" value="50" id="" readonly >
+                <div class="loading-bar-in"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="Fee-Invoices">
+          <h1>Fee Invoices</h1>
+        </div>
+        <div id="Scholarships">
+          <h1>Scholarships</h1>
+        </div>
+      </div>
+    </div>
+    <script>
+      let Dashboard = document.getElementById("Dashboard");
+      let registerCourse = document.getElementById("Register-Course");
+      let currentCourse = document.getElementById("Current-Course");
+      let attendance = document.getElementById("View-Attendance");
+      let feeInvoices = document.getElementById("Fee-Invoices");
+      let scholarship = document.getElementById("Scholarships");
+      console.log("dashboard");
+      Dashboard.style.display = "block";
+      registerCourse.style.display = "none";
+      currentCourse.style.display = "none";
+      attendance.style.display = "none";
+      feeInvoices.style.display = "none";
+      scholarship.style.display = "none";
+      function viewDashboard() {
+        console.log("dashboard");
+        Dashboard.style.display = "block";
+        registerCourse.style.display = "none";
+        currentCourse.style.display = "none";
+        attendance.style.display = "none";
+        feeInvoices.style.display = "none";
+        scholarship.style.display = "none";
+      }
+      function viewRegisterCourse() {
+        console.log("register course");
+        Dashboard.style.display = "none";
+        registerCourse.style.display = "block";
+        currentCourse.style.display = "none";
+        attendance.style.display = "none";
+        feeInvoices.style.display = "none";
+        scholarship.style.display = "none";
+      }
+      function viewCurrentCourse() {
+        console.log("current course");
+        Dashboard.style.display = "none";
+        registerCourse.style.display = "none";
+        currentCourse.style.display = "block";
+        attendance.style.display = "none";
+        feeInvoices.style.display = "none";
+        scholarship.style.display = "none";
+      }
+      function viewAttndance() {
+        console.log("attendance");
+        Dashboard.style.display = "none";
+        registerCourse.style.display = "none";
+        currentCourse.style.display = "none";
+        attendance.style.display = "block";
+        feeInvoices.style.display = "none";
+        scholarship.style.display = "none";
+      }
+      function viewFeeInvoices() {
+        console.log("dashboard");
+        Dashboard.style.display = "none";
+        registerCourse.style.display = "none";
+        currentCourse.style.display = "none";
+        attendance.style.display = "none";
+        feeInvoices.style.display = "block";
+        scholarship.style.display = "none";
+      }
+      function viewScholarship() {
+        console.log("dashboard");
+        Dashboard.style.display = "none";
+        registerCourse.style.display = "none";
+        currentCourse.style.display = "none";
+        attendance.style.display = "none";
+        feeInvoices.style.display = "none";
+        scholarship.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
