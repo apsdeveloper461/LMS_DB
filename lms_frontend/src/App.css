@@ -1,0 +1,33 @@
+.content-container { 
+    margin-left: 250px;
+    padding: 30px;
+    margin-top: 80px;
+}
+body{
+    cursor:pointer;
+}
+.content-container
+,.content-container h2,
+.content-container h1 {
+    animation: slideIn 1s ease forwards;
+}
+.content-container h1{
+    display:inline-block;
+    border-bottom: 2px groove rgba(0, 0, 0, 0.689);
+    margin-bottom: 15px;
+    padding: 5px;
+}
+.content-container p {
+    animation: slideIn 1s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
