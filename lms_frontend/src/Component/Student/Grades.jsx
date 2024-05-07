@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Slider/Navbar'
 import Slider from '../Slider/Slider'
 import parsedToStudentSlider from './menu'
 
 function Grades() {
+  const[gradesData,setGradesData]=useState(NULL);
+  useEffect(()=>{
+    const studentInfo={
+       'student_id':Cookies.get('student_id')
+    }
+    axios.post('http://127.0.0.1:8000/api/student/grades',studentInfo)
+   .then(res=>{
+    console.log(res.data);
+    setGradesData(res.data);
+    })
+   .catch(err=>{
+    console.log(err);
+    })
+
+  },[])
   return (
     <>
     <Navbar logo="Student Panel"/>
